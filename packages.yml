@@ -1,0 +1,2 @@
+packages:
+  - local: ../cdpvd_dashboards_store

@@ -1,0 +1,46 @@
+version: 2
+
+seeds:
+  - name: mapping_corps_emploi
+    description: >
+      Proposition issue des titres du referentiel Core conserve dans references.
+      Les categories vides restent a determiner. La table respondents exige
+      une categorie renseignee pour chaque employe admissible.
+    config:
+      column_types:
+        corp_empl: nvarchar(20)
+        description_corps_empl: nvarchar(200)
+        categorie: nvarchar(100)
+        corps_emploi: nvarchar(100)
+    columns:
+      - name: corp_empl
+        data_tests: [not_null, unique]
+      - name: corps_emploi
+        data_tests:
+          - accepted_values:
+              values: [Enseignant, Soutien administratif, Technique, Paratechnique, Manuel, Professionnel, Gestionnaire]
+  - name: mapping_lieux_travail
+    description: Une correspondance par lieu, avec regroupement des services sous CSS si souhaite.
+    config:
+      column_types:
+        lieu_trav: nvarchar(20)
+        lieu_travail_principal: nvarchar(200)
+    columns:
+      - name: lieu_trav
+        data_tests: [not_null, unique]
+      - name: lieu_travail_principal
+        data_tests: [not_null]
+  - name: mapping_statuts_engagement
+    description: Stabilite de l engagement, distincte du temps plein ou partiel.
+    config:
+      column_types:
+        stat_eng: nvarchar(20)
+        statut_engagement: nvarchar(100)
+    columns:
+      - name: stat_eng
+        data_tests: [not_null, unique]
+      - name: statut_engagement
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [Régulier, Temporaire ou remplaçant, Occasionnel]

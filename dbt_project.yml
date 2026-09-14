@@ -1,0 +1,28 @@
+name: kyogo_cdpvd_dashboards_store_features
+version: "0.1.0"
+config-version: 2
+require-dbt-version: [">=1.9.0", "<2.0.0"]
+profile: replaceMeInLocals
+
+model-paths: [models]
+seed-paths: [seeds]
+test-paths: [tests]
+clean-targets: [target, dbt_packages]
+
+models:
+  kyogo_cdpvd_dashboards_store_features:
+    +tags: [kyogo]
+    marts:
+      human_resources:
+        +schema: human_resources
+        staging:
+          +materialized: ephemeral
+        features:
+          +materialized: ephemeral
+    design:
+      +schema: design
+      +materialized: table
+
+data_tests:
+  kyogo_cdpvd_dashboards_store_features:
+    +store_failures: false

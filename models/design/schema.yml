@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: respondents
+    description: >
+      Table categorielle Kyogo, une ligne par employe admissible.
+      Le perimetre et le lieu principal proviennent de cdpvd_fact_activity_current.
+      La tranche represente les annees completes depuis date_entr, et non une
+      anciennete conventionnelle. Les matricules et courriels servent uniquement
+      a identifier et contacter les repondants; ce ne sont pas des predicteurs MRP.
+      Cette table contient des donnees personnelles et reste dans le perimetre
+      autorise du CSS jusqu a son export autorise vers Kyogo.
+    columns:
+      - name: matr
+        description: Identifiant employe dans le CSS.
+        data_tests: [not_null, unique]
+      - name: courriel
+        description: Courriel du Core normalise en minuscules et sans espaces externes.
+        data_tests: [not_null, unique]
+      - name: corps_emploi
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [Enseignant, Soutien administratif, Technique, Paratechnique, Manuel, Professionnel, Gestionnaire]
+      - name: tranche_anciennete
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [0–5 ans, 6–10 ans, 11–15 ans, 16–20 ans, 21 ans et plus]
+      - name: lieu_travail_principal
+        description: Ecole ou regroupement CSS defini par la correspondance locale.
+        data_tests: [not_null]
+      - name: statut_engagement
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [Régulier, Temporaire ou remplaçant, Occasionnel]
