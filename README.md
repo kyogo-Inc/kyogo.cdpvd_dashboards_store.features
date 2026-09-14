@@ -10,7 +10,6 @@ Le nom dbt du package est `kyogo_cdpvd_dashboards_store_features`.
 - `models/marts/human_resources/features` : correspondances des codes et calcul des catégories.
 - `models/design` : table catégorielle finale, matérialisée en table.
 - `seeds/marts/human_resources` : proposition de mapping des corps d’emploi et contrats des mappings locaux.
-- `references` : copie intacte du référentiel de départ et décisions de classement à valider.
 - `tests` : conservation de la population et validité des libellés de lieux.
 - `dev/check.py` : contrôles SQL avec données fictives uniquement.
 
@@ -68,7 +67,7 @@ Les `ref()` sont volontairement non qualifiés pour respecter les surcharges du 
 
 ## Mappings et seeds locales
 
-Le package fournit une première `mapping_corps_emploi.csv` de 585 codes, dont 567 classés et 18 sans proposition. Les trois colonnes d’origine sont conservées et la catégorie proposée est ajoutée dans `corps_emploi`. Voir [la provenance, les choix et les cas à valider](references/MAPPING.md). Ce mapping doit être revu pour le CSS consommateur avant utilisation.
+Le package fournit une première `mapping_corps_emploi.csv` de 585 codes, dont 567 classés et 18 sans proposition. Les trois colonnes d’origine sont conservées et la catégorie proposée est ajoutée dans `corps_emploi`. Ce mapping doit être revu pour le CSS consommateur avant utilisation.
 
 Comme dans Core/CDPVD, le consommateur fournit les autres CSV sous `seeds/marts/human_resources/` :
 
@@ -130,4 +129,4 @@ Le contrôle du référentiel ne nécessite aucune connexion :
 python dev/check_mapping.py
 ```
 
-Il vérifie la conservation des colonnes sources, des codes et de leur ordre, l’unicité, les catégories autorisées et plusieurs classements représentatifs.
+Il vérifie la présence des codes, leur format à quatre chiffres, leur unicité, les catégories autorisées et plusieurs classements représentatifs.

@@ -3,7 +3,7 @@ version: 2
 seeds:
   - name: mapping_corps_emploi
     description: >
-      Proposition issue des titres du referentiel Core conserve dans references.
+      Proposition issue des titres du referentiel Core.
       Les categories vides restent a determiner. La table respondents exige
       une categorie renseignee pour chaque employe admissible.
     config:
