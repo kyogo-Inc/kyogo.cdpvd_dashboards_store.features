@@ -14,15 +14,12 @@ seeds:
 
 models:
   kyogo_cdpvd_dashboards_store_features:
+    +materialized: table
     +schema: kyogo
     +tags: [kyogo]
     marts:
       human_resources:
         +schema: human_resources
-        staging:
-          +materialized: ephemeral
-        features:
-          +materialized: ephemeral
     design:
       +schema: design
       +materialized: table
