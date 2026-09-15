@@ -27,13 +27,21 @@ def check(connection):
         );
         create table #dim_employees (matr nvarchar(20), email_address nvarchar(100));
         create table #i_pai_dos (matr nvarchar(20), date_entr date);
-        insert into #cdpvd_fact_activity_current values ('TEST', 'J', 'W', 'S');
+        create table #i_pai_dos_empl (
+            matr nvarchar(20), lieu_trav nvarchar(20), ind_empl_princ int
+        );
+        insert into #cdpvd_fact_activity_current values ('TEST', 'J', 'OLD', 'S');
+        insert into #i_pai_dos_empl values ('TEST', 'W', 1), ('TEST', 'SECONDARY', 0);
         insert into #dim_employees values
             ('TEST', ' TEST@example.invalid '), ('OUTSIDE', 'outside@example.invalid');
         insert into #i_pai_dos values ('TEST', '2020-09-14'), ('OUTSIDE', '2020-09-14');
     ''')
     staged = query('models/marts/human_resources/staging/stg_respondents.sql')
     assert len(staged) == 1 and staged[0][0:2] == ('TEST', 'test@example.invalid')
+    assert staged[0][3] == 'W'
+    cursor.execute("delete from #i_pai_dos_empl where ind_empl_princ = 1")
+    missing_workplace = query('models/marts/human_resources/staging/stg_respondents.sql')
+    assert len(missing_workplace) == 1 and missing_workplace[0][3] is None
 
     cursor.execute('''
         create table #stg_respondents (
@@ -44,14 +52,14 @@ def check(connection):
         create table #mapping_corps_emploi (
             corp_empl nvarchar(20), corps_emploi nvarchar(100)
         );
-        create table #mapping_lieux_travail (
-            lieu_trav nvarchar(20), lieu_travail_principal nvarchar(200)
+        create table #i_pai_tab_lieu_trav (
+            lieu_trav nvarchar(20), descr nvarchar(200)
         );
         create table #mapping_statuts_engagement (
             stat_eng nvarchar(20), statut_engagement nvarchar(100)
         );
         insert into #mapping_corps_emploi values ('J', N'Enseignant');
-        insert into #mapping_lieux_travail values ('W', N'École fictive');
+        insert into #i_pai_tab_lieu_trav values ('W', N'École fictive');
         insert into #mapping_statuts_engagement values ('S', N'Régulier');
     ''')
     cases = [
@@ -94,7 +102,7 @@ def check(connection):
 
     for table, column in [
         ('mapping_corps_emploi', 2),
-        ('mapping_lieux_travail', 4),
+        ('i_pai_tab_lieu_trav', 4),
         ('mapping_statuts_engagement', 5),
     ]:
         cursor.execute('save transaction mapping_check')
@@ -106,15 +114,18 @@ def check(connection):
     cursor.execute("insert into #mapping_corps_emploi values ('J', N'Manuel')")
     assert len(query(model)) == 2 * len(cases)
     cursor.execute("delete from #mapping_corps_emploi where corps_emploi = N'Manuel'")
-    assert query('tests/workplace_labels.sql') == []
-    cursor.execute("update #mapping_lieux_travail set lieu_travail_principal = ' '")
-    assert query('tests/workplace_labels.sql') == [(1,)]
+    cursor.execute("update #i_pai_tab_lieu_trav set descr = ' '")
+    assert all(row[4] is None for row in query(model))
 
     cursor.execute('''
-        select matr into #respondents from #cdpvd_fact_activity_current;
+        select matr, cast(N'École fictive' as nvarchar(200)) as lieu_travail_principal
+        into #respondents from #cdpvd_fact_activity_current;
     ''')
+    assert query('tests/workplace_labels.sql') == []
+    cursor.execute("update #respondents set lieu_travail_principal = ' '")
+    assert query('tests/workplace_labels.sql') == [(1,)]
     assert query('tests/respondent_population.sql') == []
-    cursor.execute("insert into #respondents values ('DUPLICATE')")
+    cursor.execute("insert into #respondents (matr) values ('DUPLICATE')")
     assert query('tests/respondent_population.sql') == [(1,)]
     print('PASS: staging, 13 cas de dates, projection, mappings absents, doublons et controles SQL.')
 

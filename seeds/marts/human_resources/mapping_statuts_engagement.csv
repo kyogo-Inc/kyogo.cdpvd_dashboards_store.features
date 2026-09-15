@@ -1,0 +1,52 @@
+stat_eng,description_stat_eng,statut_engagement
+94,Aide devoirs/Écoles forme,
+95,Fond jeunesse,
+97,Non recensé/e PERCOS,
+98,Non recensé/e PERCOS,
+E1,Temps plein régulier,Régulier
+E2,Non légalement qualifié/e,Temporaire ou remplaçant
+E3,Temps partiel,Temporaire ou remplaçant
+E4,À la leçon,Occasionnel
+E5,À taux horaire,Occasionnel
+E6,Supp occ 20 jrs et moins,Occasionnel
+E7,Supp occ + 20 jrs cons ,Occasionnel
+E8,Tempo. remplaçant,Temporaire ou remplaçant
+G1,Régulier temps plein,Régulier
+G2,Régulier temps partiel,Régulier
+G3,Tempo. remplaçant <2ms,Temporaire ou remplaçant
+G4,Tempo. remplaçant >=2ms,Temporaire ou remplaçant
+G5,Temp. rempl. ext. <2ms,Temporaire ou remplaçant
+G6,Temp. rempl. ext.>=2ms<an,Temporaire ou remplaçant
+G7,Temp. rempl. ext. >=an,Temporaire ou remplaçant
+G8,Autres gestionnaires,
+P1,Regulier temps plein,Régulier
+P2,Regulier temps partiel,Régulier
+P3,Remplaçant < 6 mois,Temporaire ou remplaçant
+P4,Rempl. t. plein 6ms et +,Temporaire ou remplaçant
+P6,Rempl. t. part. 6ms et +,Temporaire ou remplaçant
+P7,NIL Octr temps pl <6ms,Temporaire ou remplaçant
+P8,NIL Octr temps pl >6ms,Temporaire ou remplaçant
+P9,NIL Octr temps pa <6ms,Temporaire ou remplaçant
+PA,NIL Octr temps pa >6ms,Temporaire ou remplaçant
+PB,Surnuméraire < 6 mois,Temporaire ou remplaçant
+PC,Surnum. t. plein 6ms et +,Temporaire ou remplaçant
+PE,Surnum. t. part. 6ms et +,Temporaire ou remplaçant
+S1,Regulier temps plein,Régulier
+S2,Regulier t. partiel +15h.,Régulier
+S3,Surcroît courte durée,Temporaire ou remplaçant
+S5,Remplaçant moins de 6ms,Temporaire ou remplaçant
+S6,Rempl. t. plein 6ms et +,Temporaire ou remplaçant
+S8,Rempl. t. part. 6ms+ +15h,Temporaire ou remplaçant
+S9,Education des adultes,
+SA,Ne plus utiliser,
+SC,Cafétéria.       15h et -,
+SD,Surveillant 15h ou moins,
+SE,A l'essai temps plein,
+SF,A l'essai t.partiel  +15h,
+SG,Ne plus utiliser,
+SH,Rég. t. partiel  15h et -,Régulier
+SI,NILSoutien form prof ch10,
+SJ,Ne plus utiliser,
+SK,Surcroît longue durée,Temporaire ou remplaçant
+SL,Rempl. t. part. 6ms+ 15h-,Temporaire ou remplaçant
+SM,Surcroît long. durée 15h-,Temporaire ou remplaçant

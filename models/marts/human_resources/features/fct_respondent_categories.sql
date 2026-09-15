@@ -34,12 +34,12 @@ select
         when tenure.annees_presence between 16 and 20 then N'16–20 ans'
         when tenure.annees_presence >= 21 then N'21 ans et plus'
     end as tranche_anciennete,
-    workplaces.lieu_travail_principal,
+    nullif(ltrim(rtrim(workplaces.descr)), '') as lieu_travail_principal,
     engagement.statut_engagement
 from tenure
 left join {{ ref('mapping_corps_emploi') }} as jobs
     on jobs.corp_empl = tenure.corp_empl
-left join {{ ref('mapping_lieux_travail') }} as workplaces
+left join {{ ref('i_pai_tab_lieu_trav') }} as workplaces
     on workplaces.lieu_trav = tenure.lieu_trav
 left join {{ ref('mapping_statuts_engagement') }} as engagement
     on engagement.stat_eng = tenure.stat_eng

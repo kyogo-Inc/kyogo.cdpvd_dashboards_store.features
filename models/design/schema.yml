@@ -4,7 +4,8 @@ models:
   - name: respondents
     description: >
       Table categorielle Kyogo, une ligne par employe admissible.
-      Le perimetre et le lieu principal proviennent de cdpvd_fact_activity_current.
+      Le perimetre provient de cdpvd_fact_activity_current. Le lieu principal
+      provient de i_pai_dos_empl avec ind_empl_princ = 1.
       La tranche represente les annees completes depuis date_entr, et non une
       anciennete conventionnelle. Les matricules et courriels servent uniquement
       a identifier et contacter les repondants; ce ne sont pas des predicteurs MRP.
@@ -28,7 +29,7 @@ models:
           - accepted_values:
               values: [0–5 ans, 6–10 ans, 11–15 ans, 16–20 ans, 21 ans et plus]
       - name: lieu_travail_principal
-        description: Ecole ou regroupement CSS defini par la correspondance locale.
+        description: Libelle i_pai_tab_lieu_trav du lieu de travail de l emploi principal.
         data_tests: [not_null]
       - name: statut_engagement
         data_tests:

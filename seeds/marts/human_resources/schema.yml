@@ -19,22 +19,15 @@ seeds:
         data_tests:
           - accepted_values:
               values: [Enseignant, Soutien administratif, Technique, Paratechnique, Manuel, Professionnel, Gestionnaire]
-  - name: mapping_lieux_travail
-    description: Une correspondance par lieu, avec regroupement des services sous CSS si souhaite.
-    config:
-      column_types:
-        lieu_trav: nvarchar(20)
-        lieu_travail_principal: nvarchar(200)
-    columns:
-      - name: lieu_trav
-        data_tests: [not_null, unique]
-      - name: lieu_travail_principal
-        data_tests: [not_null]
   - name: mapping_statuts_engagement
-    description: Stabilite de l engagement, distincte du temps plein ou partiel.
+    description: >
+      Proposition issue du referentiel Core, a valider pour le CSS.
+      Stabilite de l engagement, distincte du temps plein ou partiel.
+      Les categories vides restent a determiner.
     config:
       column_types:
         stat_eng: nvarchar(20)
+        description_stat_eng: nvarchar(200)
         statut_engagement: nvarchar(100)
     columns:
       - name: stat_eng

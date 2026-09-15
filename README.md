@@ -25,18 +25,15 @@ packages:
   - local: ../kyogo.cdpvd_dashboards_store.features
 ```
 
-Le projet CSS doit activer les modèles RH nécessaires, notamment `cdpvd_fact_activity_current`, `dim_employees` et `i_pai_dos`.
+Le projet CSS doit activer les modèles RH nécessaires, notamment `cdpvd_fact_activity_current`, `dim_employees`, `i_pai_dos`, `i_pai_dos_empl` et `i_pai_tab_lieu_trav`.
 
 ## Configuration et exécution
 
 Un premier mapping des corps d’emploi est fourni dans `seeds/marts/human_resources/mapping_corps_emploi.csv`. Les catégories proposées sont à valider pour le CSS.
 
-Ajouter les deux seeds locales suivantes dans le projet CSS :
+Le lieu de travail vient de `i_pai_dos_empl.lieu_trav` pour l’emploi principal (`ind_empl_princ = 1`). Son libellé vient de `i_pai_tab_lieu_trav.descr`. Aucun mapping local des lieux n’est requis.
 
-| Fichier | Colonnes |
-|---|---|
-| `mapping_lieux_travail.csv` | `lieu_trav,lieu_travail_principal` |
-| `mapping_statuts_engagement.csv` | `stat_eng,statut_engagement` |
+La seed `seeds/marts/human_resources/mapping_statuts_engagement.csv` est fournie avec les codes et descriptions du référentiel de test Core (`tooling/nightly/dbt/seeds/marts/human_resources/stat_eng.csv`). Les regroupements proposés sont à valider pour le CSS ; les catégories ambiguës restent vides. Compléter ces catégories et ajouter les codes locaux avant exécution : les tests refusent les catégories vides et les répondants sans statut reconnu.
 
 Le fichier [profiles-sample.yaml](profiles-sample.yaml) fournit un exemple de connexion pour CSSVT. La destination des tables dépend du profil dbt utilisé.
 
