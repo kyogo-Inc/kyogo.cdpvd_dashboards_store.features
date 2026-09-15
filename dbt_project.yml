@@ -9,8 +9,12 @@ seed-paths: [seeds]
 test-paths: [tests]
 clean-targets: [target, dbt_packages]
 
+seeds:
+  +schema: kyogo
+
 models:
   kyogo_cdpvd_dashboards_store_features:
+    +schema: kyogo
     +tags: [kyogo]
     marts:
       human_resources:
