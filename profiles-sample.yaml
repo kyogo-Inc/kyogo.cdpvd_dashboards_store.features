@@ -1,0 +1,15 @@
+cssvt_store:
+  target: dev
+  outputs:
+    dev:
+      type: fabric
+      driver: ODBC Driver 17 for SQL Server
+      server: "{{ env_var('CSSVT_SQL_SERVER') }}"
+      port: 10001
+      database: tbe_dev
+      schema: kyogo
+      user: "{{ env_var('CSSVT_SQL_USER') }}"
+      password: "{{ env_var('CSSVT_SQL_PASSWORD') }}"
+      authentication: sql
+      trust_cert: true
+      threads: 1
